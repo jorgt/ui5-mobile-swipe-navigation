@@ -1,0 +1,16 @@
+<mvc:View 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:core="sap.ui.core" 
+	xmlns="sap.m" 
+	controllerName="holcim.swipedemo.controller.App" 
+	displayBlock="true"
+	resourceBundleName="holcim.swipedemo.i18n.i18n" 
+	resourceBundleAlias="i18n">
+	<Shell>
+		<App id="swipedemo-app">
+			<core:Fragment fragmentName="holcim.swipedemo.view.Page1" type="XML" />
+			<core:Fragment fragmentName="holcim.swipedemo.view.Page2" type="XML" />
+			<core:Fragment fragmentName="holcim.swipedemo.view.Page3" type="XML" />
+		</App>
+	</Shell>
+</mvc:View>
