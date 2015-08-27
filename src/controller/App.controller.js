@@ -21,7 +21,7 @@ sap.ui.define([
 
 			this._setupTransitions();
 
-			this.app.attachAfterNavigate(this.onAfterNavigate.bind(this))
+			this.app.attachAfterNavigate(this.onAfterNavigate.bind(this));
 		},
 
 		onAfterNavigate: function(e) {
@@ -36,11 +36,11 @@ sap.ui.define([
 		 */
 		_setupTransitions: function() {
 			$('body').on('swipeleft', '.swipe-page', function(e) {
-				this._navigate(e, 'left');
+				this._navigate(e.currentTarget.parentNode.id, 'left');
 			}.bind(this));
 
 			$('body').on('swiperight', '.swipe-page', function(e) {
-				this._navigate(e, 'right');
+				this._navigate(e.currentTarget.parentNode.id, 'right');
 			}.bind(this));
 		},
 
@@ -52,11 +52,10 @@ sap.ui.define([
 		 * @private
 		 */
 		_navigate: function(e, direction) {
-			var id, newId, match, add;
+			var newId, match, add;
 
-			id = e.currentTarget.parentNode.id;
 			match = id.match(/.*swipe-page([0-9]{1,}$)/);
-			add = (direction === 'left') ? 1 : -1
+			add = (direction === 'left') ? 1 : -1;
 			if (match && match.length > 1) {
 				newId = this.createId('swipe-page' + (Number(match[1]) + add));
 				this.app.to(newId, 'slide-' + direction);

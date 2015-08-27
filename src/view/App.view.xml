@@ -9,9 +9,9 @@
 	id="swipedemo-view">
 	<Shell>
 		<App id="swipedemo-app">
-			<mvc:XMLView id="swipe-page1" viewName="holcim.swipedemo.view.Page1"></mvc:XMLView>
-			<mvc:XMLView id="swipe-page2" viewName="holcim.swipedemo.view.Page2"></mvc:XMLView>
-			<mvc:XMLView id="swipe-page3" viewName="holcim.swipedemo.view.Page3"></mvc:XMLView>
+			<mvc:XMLView id="swipe-page1" viewName="holcim.swipedemo.view.Page1" />
+			<mvc:XMLView id="swipe-page2" viewName="holcim.swipedemo.view.Page2" />
+			<mvc:XMLView id="swipe-page3" viewName="holcim.swipedemo.view.Page3" />
 		</App>
 	</Shell>
 </mvc:View>
