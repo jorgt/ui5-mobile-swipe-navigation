@@ -51,7 +51,7 @@ sap.ui.define([
 		 * @param  {string} direction the direction, either 'left' or 'right'
 		 * @private
 		 */
-		_navigate: function(e, direction) {
+		_navigate: function(id, direction) {
 			var newId, match, add;
 
 			match = id.match(/.*swipe-page([0-9]{1,}$)/);

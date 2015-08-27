@@ -3,7 +3,8 @@
   "description": "Swipe navigation in UI5",
   "version": "0.1.0",
   "private": true,
-  "author": "Jorg THuijls <jorg.thuijls@gmail.com>",
+  "author": "Jorg Thuijls <jorg.thuijls@gmail.com>",
+  "lincense": "MIT",
   "scripts": {
     "test": "grunt jshint"
   },
