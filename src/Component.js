@@ -17,13 +17,27 @@ sap.ui.define([
 			rootView: 'holcim.swipedemo.view.App'
 		},
 
+		/**
+		 * Initialization method of the swipedemo component
+		 * @public
+		 */
 		init: function() {
-			var slide;
+			this._setUpSwipeAnimations();
 
+			//set up models. 
 			sap.ui.getCore().setModel(new AppModel());
-			sap.ui.getCore().setModel(new ResourceModel(), 'i18n');
+			sap.ui.getCore().setModel(new ResourceModel(), 'i18n');	
 
-			slide = NavContainer.transitions.slide;
+			//call parent method
+			UIComponent.prototype.init.call(this, arguments);
+		},
+
+		/**
+		 * This sets up the swipe animations
+		 * @private
+		 */
+		_setUpSwipeAnimations: function() {
+			var slide = NavContainer.transitions.slide;
 
 			//technically, swiping from left to right just means
 			//reversing the "to/back functions" of the existing slide animation
@@ -32,9 +46,7 @@ sap.ui.define([
 			NavContainer.transitions["slide-right"] = {
 				to: slide.back,
 				back: slide.to
-			};
-
-			UIComponent.prototype.init.call(this, arguments);
+			};		
 		}
 	});
 });

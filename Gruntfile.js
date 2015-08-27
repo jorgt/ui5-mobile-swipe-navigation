@@ -102,14 +102,14 @@ module.exports = function(grunt) {
 	});
 
 	// Linting task
-	grunt.registerTask('jshint', ['jshint']);
+	grunt.registerTask('hint', ['jshint']);
 
 	// Build task
 	grunt.registerTask('build', ['openui5_preload', 'copy']);
 
 	// Default task
 	grunt.registerTask('default', [
-		'jshint',
+		'hint',
 		'clean',
 		'build',
 		'serve:dist'

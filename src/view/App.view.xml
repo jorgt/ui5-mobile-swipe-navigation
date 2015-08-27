@@ -5,12 +5,13 @@
 	controllerName="holcim.swipedemo.controller.App" 
 	displayBlock="true"
 	resourceBundleName="holcim.swipedemo.i18n.i18n" 
-	resourceBundleAlias="i18n">
+	resourceBundleAlias="i18n"
+	id="swipedemo-view">
 	<Shell>
 		<App id="swipedemo-app">
-			<core:Fragment fragmentName="holcim.swipedemo.view.Page1" type="XML" />
-			<core:Fragment fragmentName="holcim.swipedemo.view.Page2" type="XML" />
-			<core:Fragment fragmentName="holcim.swipedemo.view.Page3" type="XML" />
+			<mvc:XMLView id="swipe-page1" viewName="holcim.swipedemo.view.Page1"></mvc:XMLView>
+			<mvc:XMLView id="swipe-page2" viewName="holcim.swipedemo.view.Page2"></mvc:XMLView>
+			<mvc:XMLView id="swipe-page3" viewName="holcim.swipedemo.view.Page3"></mvc:XMLView>
 		</App>
 	</Shell>
 </mvc:View>

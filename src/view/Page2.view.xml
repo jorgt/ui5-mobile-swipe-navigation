@@ -1,0 +1,17 @@
+<mvc:View 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m" 
+	controllerName="holcim.swipedemo.controller.Page2" 
+	displayBlock="true"
+	resourceBundleName="holcim.swipedemo.i18n.i18n" 
+	resourceBundleAlias="i18n">
+	<Page title="{i18n>master.title}" backgroundDesign="Solid" class="swipe-page">
+		<content>
+			<Text text="{i18n>page2.text}" />
+		</content>
+		<footer>
+			<Bar>
+			</Bar>
+		</footer>
+	</Page>
+</mvc:View>

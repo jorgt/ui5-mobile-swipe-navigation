@@ -1,17 +1,33 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller"
-], function(Controller) {
+	"sap/ui/core/mvc/Controller",
+	"sap/m/MessageToast"
+], function(Controller, Toast) {
 	"use strict";
 
 	return Controller.extend("holcim.swipedemo.controller.App", {
+
+		/**
+		 * The app object.
+		 * @type {sap.m.App}
+		 */
+		app: null,
+
 		/**
 		 * On Initialization of the controller, this is the method that'll get executed
 		 * @public
 		 */
 		onInit: function() {
-			var model = sap.ui.getCore().getModel('i18n');
-			console.log(model.getProperty('master.title'));
+			this.app = this.byId('swipedemo-app');
+
 			this._setupTransitions();
+
+			this.app.attachAfterNavigate(this.onAfterNavigate.bind(this))
+		},
+
+		onAfterNavigate: function(e) {
+			Toast.show('Goin from ' + e.mParameters.from + ' to ' + e.mParameters.to, {
+				duration: 500
+			});
 		},
 
 		/**
@@ -36,11 +52,14 @@ sap.ui.define([
 		 * @private
 		 */
 		_navigate: function(e, direction) {
-			var id = e.currentTarget.id;
-			var match = id.match(/(.*swipe-page)([0-9]{1,})/);
-			var add = (direction === 'left') ? 1 : -1;
-			if (match && match.length > 2) {
-				this.byId('swipedemo-app').to(match[1] + (Number(match[2]) + add), 'slide-' + direction);
+			var id, newId, match, add;
+
+			id = e.currentTarget.parentNode.id;
+			match = id.match(/.*swipe-page([0-9]{1,}$)/);
+			add = (direction === 'left') ? 1 : -1
+			if (match && match.length > 1) {
+				newId = this.createId('swipe-page' + (Number(match[1]) + add));
+				this.app.to(newId, 'slide-' + direction);
 			}
 		}
 	});
