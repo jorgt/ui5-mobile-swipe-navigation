@@ -4,9 +4,7 @@ sap.ui.define([
 
 	return JSONModel.extend("holcim.aggcycle.services.ApplicationModel", {
 		constructor: function() {
-			JSONModel.prototype.constructor.call(this, {
-				text: 'bla'
-			});
+			JSONModel.prototype.constructor.call(this, {});
 		}
 	});
 });

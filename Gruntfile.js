@@ -6,8 +6,14 @@ module.exports = function(grunt) {
 
 		dir: {
 			webapp: 'src',
+			tests: 'test',
 			dist: 'dist',
-			bower_components: 'bower_components'
+			bower_components: 'bower_components',
+			localServerTestUrl: 'http://localhost:8080/test-resources'
+		},
+
+		tests: {
+			opaTimeout: 900000
 		},
 
 		connect: {
@@ -15,8 +21,24 @@ module.exports = function(grunt) {
 				port: 8080,
 				hostname: '*'
 			},
+
+			serve: {
+				options: {
+					open: {
+						target: 'http://localhost:8080/index.html'
+					}
+				}
+			},
+
 			src: {},
-			dist: {}
+
+			dist: {
+				options: {
+					open: {
+						target: 'http://localhost:8080/build.html'
+					}
+				}
+			}
 		},
 
 		openui5_connect: {
@@ -27,14 +49,24 @@ module.exports = function(grunt) {
 					'<%= dir.bower_components %>/openui5-themelib_sap_bluecrystal/resources'
 				]
 			},
+
+			serve: {
+				options: {
+					appresources: '<%= dir.webapp %>',
+					testresources: ['<%= dir.tests %>']
+				}
+			},
+
 			src: {
 				options: {
-					appresources: '<%= dir.webapp %>'
+					appresources: '<%= dir.webapp %>',
+					testresources: ['<%= dir.tests %>']
 				}
 			},
 			dist: {
 				options: {
-					appresources: '<%= dir.dist %>'
+					appresources: '<%= dir.webapp %>',
+					testresources: ['<%= dir.tests %>']
 				}
 			}
 		},
@@ -44,7 +76,7 @@ module.exports = function(grunt) {
 				options: {
 					resources: {
 						cwd: '<%= dir.webapp %>',
-						prefix: 'todo'
+						prefix: 'sap/ui/demo/masterdetail'
 					},
 					dest: '<%= dir.dist %>'
 				},
@@ -87,6 +119,47 @@ module.exports = function(grunt) {
 			},
 		},
 
+		qunit: {
+			options: {
+				/* for debugging*/
+				'--remote-debugger-autorun': 'yes',
+				'--remote-debugger-port': 8000
+			},
+
+			unit: {
+				options: {
+					urls: [
+						'<%= dir.localServerTestUrl %>/unit/unitTests.qunit.html'
+					]
+				}
+
+			},
+			opa: {
+				options: {
+					urls: [
+						'<%= dir.localServerTestUrl %>/integration/opaTests.qunit.html'
+					],
+					// same as qunits timeout 90 seconds since opa test might take a while
+					timeout: '<%= tests.opaTimeout %>'
+				}
+			},
+			opaPhone: {
+				options: {
+					urls: [
+						'<%= dir.localServerTestUrl %>/integration/opaTestsPhone.qunit.html'
+					],
+					// same as qunits timeout 90 seconds since opa test might take a while
+					timeout: '<%= tests.opaTimeout %>'
+				},
+
+				page: {
+					settings: {
+						userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 5_0_1 like Mac OS X) AppleWebKit/534.48 (KHTML, like Gecko) Version/5.1 Mobile/9A406 Safari/7534.48.3" // iOS userAgent string
+					}
+				}
+			}
+		},
+
 	});
 
 	// These plugins provide necessary tasks.
@@ -95,23 +168,28 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-openui5');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-qunit');
 
 	// Server task
-	grunt.registerTask('serve', function(target) {
-		grunt.task.run('openui5_connect:' + (target || 'src') + ':keepalive');
+	grunt.registerTask('serve', function() {
+		grunt.task.run('openui5_connect:serve' + ':keepalive');
 	});
 
 	// Linting task
-	grunt.registerTask('hint', ['jshint']);
+	grunt.registerTask('hint', ['jshint:all']);
 
 	// Build task
-	grunt.registerTask('build', ['openui5_preload', 'copy']);
+	grunt.registerTask('build', ['clean', 'openui5_preload', 'copy']);
+	grunt.registerTask('buildRun', ['build', 'serve:dist']);
+
+	// Test task
+	grunt.registerTask('test', ['openui5_connect:src', 'qunit:unit', 'qunit:opa']);
+	grunt.registerTask('unitTest', ['openui5_connect:src', 'qunit:unit']);
+	grunt.registerTask('opaTest', ['openui5_connect:src', 'qunit:opa']);
 
 	// Default task
 	grunt.registerTask('default', [
-		'hint',
-		'clean',
-		'build',
-		'serve:dist'
+		'jshint:all',
+		'test'
 	]);
 };
