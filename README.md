@@ -39,3 +39,7 @@ A few unit tests regarding the models and app are included. Use `grunt test` to 
 ## Build
 
 Run `grunt build` and watch how your app is concatenated, minified, copied to the `dist` folder. Use `grunt buildRun` to also open the app on http://localhost:8080.
+
+## Phonegap 
+
+This does not include packaging up with Phonegap. See the preloads and libraries to see how little files are actually loaded through `grunt build`. 
