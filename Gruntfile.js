@@ -35,7 +35,7 @@ module.exports = function(grunt) {
 			dist: {
 				options: {
 					open: {
-						target: 'http://localhost:8080/build.html'
+						target: 'http://localhost:8080/index.html'
 					}
 				}
 			}
@@ -65,8 +65,7 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				options: {
-					appresources: '<%= dir.webapp %>',
-					testresources: ['<%= dir.tests %>']
+					appresources: '<%= dir.dist %>'
 				}
 			}
 		},
@@ -133,30 +132,6 @@ module.exports = function(grunt) {
 					]
 				}
 
-			},
-			opa: {
-				options: {
-					urls: [
-						'<%= dir.localServerTestUrl %>/integration/opaTests.qunit.html'
-					],
-					// same as qunits timeout 90 seconds since opa test might take a while
-					timeout: '<%= tests.opaTimeout %>'
-				}
-			},
-			opaPhone: {
-				options: {
-					urls: [
-						'<%= dir.localServerTestUrl %>/integration/opaTestsPhone.qunit.html'
-					],
-					// same as qunits timeout 90 seconds since opa test might take a while
-					timeout: '<%= tests.opaTimeout %>'
-				},
-
-				page: {
-					settings: {
-						userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 5_0_1 like Mac OS X) AppleWebKit/534.48 (KHTML, like Gecko) Version/5.1 Mobile/9A406 Safari/7534.48.3" // iOS userAgent string
-					}
-				}
 			}
 		},
 
@@ -180,12 +155,10 @@ module.exports = function(grunt) {
 
 	// Build task
 	grunt.registerTask('build', ['clean', 'openui5_preload', 'copy']);
-	grunt.registerTask('buildRun', ['build', 'serve:dist']);
+	grunt.registerTask('buildRun', ['build', 'openui5_connect:dist:keepalive']);
 
 	// Test task
 	grunt.registerTask('test', ['openui5_connect:src', 'qunit:unit']);
-	grunt.registerTask('unitTest', ['openui5_connect:src', 'qunit:unit']);
-	grunt.registerTask('opaTest', ['openui5_connect:src']);
 
 	// Default task
 	grunt.registerTask('default', [

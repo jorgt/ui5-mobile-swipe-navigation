@@ -31,8 +31,11 @@ Because you'll want to develop something on top of this, **delete** the `.git` f
 
 Developments go in the `src` folder, this is your base, and all source files go in here. Test frameworks have not been set up in this skeleton yet - stay tuned...
 
-Run this by entering `grunt serve` and browse to http://localhost:8080
+Run this by entering `grunt serve`. This will open the app on http://localhost:8080
+
+## Test
+A few unit tests regarding the models and app are included. Use `grunt test` to run.
 
 ## Build
 
-Run `grunt` and watch how your app is concatenated, minified, copied to the `dist` folder and hosted on http://localhost:8080
+Run `grunt build` and watch how your app is concatenated, minified, copied to the `dist` folder. Use `grunt buildRun` to also open the app on http://localhost:8080.
