@@ -17,7 +17,7 @@ sap.ui.define([
 		 * @public
 		 */
 		onInit: function() {
-			this.app = this.byId('swipedemo-app');
+			this.app = this.byId('swipedemo-app') || this.app;
 
 			this._setupTransitions();
 
@@ -56,6 +56,7 @@ sap.ui.define([
 
 			match = id.match(/.*swipe-page([0-9]{1,}$)/);
 			add = (direction === 'left') ? 1 : -1;
+
 			if (match && match.length > 1) {
 				newId = this.createId('swipe-page' + (Number(match[1]) + add));
 				this.app.to(newId, 'slide-' + direction);

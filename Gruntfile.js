@@ -76,7 +76,7 @@ module.exports = function(grunt) {
 				options: {
 					resources: {
 						cwd: '<%= dir.webapp %>',
-						prefix: 'sap/ui/demo/masterdetail'
+						prefix: 'holcim/swipedemo'
 					},
 					dest: '<%= dir.dist %>'
 				},
