@@ -183,9 +183,9 @@ module.exports = function(grunt) {
 	grunt.registerTask('buildRun', ['build', 'serve:dist']);
 
 	// Test task
-	grunt.registerTask('test', ['openui5_connect:src', 'qunit:unit', 'qunit:opa']);
+	grunt.registerTask('test', ['openui5_connect:src', 'qunit:unit']);
 	grunt.registerTask('unitTest', ['openui5_connect:src', 'qunit:unit']);
-	grunt.registerTask('opaTest', ['openui5_connect:src', 'qunit:opa']);
+	grunt.registerTask('opaTest', ['openui5_connect:src']);
 
 	// Default task
 	grunt.registerTask('default', [
